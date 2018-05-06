@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px 4px;
+
+  .menu-icon {
+    margin-right: 20px;
+  }
+
+  .close-icon {
+    position: absolute;
+    right: 23%;
+  }
+}

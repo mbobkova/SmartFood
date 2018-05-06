@@ -1,0 +1,44 @@
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(35, 33, 32, 0.88);
+}
+
+.menu {
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: url('https://images.pexels.com/photos/616412/pexels-photo-616412.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &__list {
+    position: absolute;
+    width: 100%;
+	top: 213px;
+	bottom: 0;
+    margin: 0;
+    padding: 30px 7px;
+    background-color: white;
+  }
+
+  &__image {
+    width: 100%;
+    transform: rotate(180deg);
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+	margin-bottom: 16px;
+	
+	&-text {
+		margin-left: 7px;
+	}
+  }
+}
