@@ -1,14 +1,47 @@
 .header {
   display: flex;
   align-items: center;
-  padding: 10px 4px;
+  padding: 20px 4px;
+
+  &__title {
+    display: flex;
+    
+    &-text {
+      font-size: 20px;
+      font-style: italic;
+      margin-right: 40px;
+    }
+  }
+
+  .done-icon {
+    cursor: pointer;
+  }
+
+  .undone-icon {
+    margin-right: 20px;
+    cursor: pointer;
+  }
 
   .menu-icon {
-    margin-right: 20px;
+    margin-right: 40px;
+    cursor: pointer;
+  }
+
+  &__close-btn {
+    position: absolute;
+    width: 80%;
+    max-width: 680px;
+
+    top: 0;
+    left: 0;
+    right: 0;
   }
 
   .close-icon {
     position: absolute;
-    right: 23%;
+    top: 20%;
+    right: 3%;
+    z-index: 1;
+    cursor: pointer;
   }
 }

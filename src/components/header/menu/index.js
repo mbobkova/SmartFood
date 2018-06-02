@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import sn from "classnames";
 
 import styles from "./Menu.scss";
 
@@ -12,11 +11,6 @@ export default class Menu extends Component {
       show && (
         <div className={styles.overlay}>
           <div className={styles.menu}>
-            
-            {/* <img
-              className={styles.menu__image}
-              src="https://images.pexels.com/photos/616412/pexels-photo-616412.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            /> */}
             <ul className={styles.menu__list}>
               <li className={styles.menu__item}>
                 <i className="material-icons">star</i>

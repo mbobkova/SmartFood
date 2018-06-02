@@ -2,11 +2,16 @@
   margin-bottom: 6px;
   padding: 0 4px;
   text-align: center;
+  display: flex;
+  overflow: auto;
 
   &__tab {
-    padding: 4px 18px;
+    padding: 12px 18px;
+    margin: 0 1px;
     border-radius: 3px;
-	border: 1px solid #00000017;
-	background-color: initial;
+    border: 1px solid #00000017;
+    background-color: initial;
+    cursor: pointer;
   }
 }
+
