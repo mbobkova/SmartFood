@@ -20,6 +20,16 @@ class Header extends Component {
     });
   };
 
+  getRecipe = () => {
+    const stringParams = this.props.selectedProducts.join();
+    const config = {
+      params: {'ingredientsTitle': stringParams},
+    };
+    axios
+      .get("http://localhost:8080/dish", config)
+      .then(response => this.setState({data: response}));
+  };
+
   reset = () => {
     this.props.resetChoise();
   };

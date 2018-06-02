@@ -12,6 +12,12 @@ export default class Menu extends Component {
         <div className={styles.overlay}>
           <div className={styles.menu}>
             <ul className={styles.menu__list}>
+            <li className={styles.menu__item}>
+                <i className="material-icons">home</i>
+                <span className={styles["menu__item-text"]}>
+                  Главная
+                </span>
+              </li>
               <li className={styles.menu__item}>
                 <i className="material-icons">star</i>
                 <span className={styles["menu__item-text"]}>
