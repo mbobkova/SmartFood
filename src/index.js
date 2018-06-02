@@ -5,12 +5,15 @@ import App from "./containers/App/index";
 import configureStore from "./store/configureStore";
 import registerServiceWorker from "./registerServiceWorker";
 
+
 import "./index.scss";
 
 const store = configureStore();
 render(
   <Provider store={store}>
-    <App />
+    
+      <App />
+
   </Provider>,
   document.getElementById("root")
 );

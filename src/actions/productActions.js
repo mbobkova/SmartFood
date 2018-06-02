@@ -31,3 +31,11 @@ export function resetChoise() {
 		type: 'reset'
 	}
 }
+
+export function saveRecipes(recipes) {
+	console.log(recipes)
+	return {
+		type: 'saveRecipes',
+		payload: recipes,
+	}
+}

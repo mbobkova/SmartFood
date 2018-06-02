@@ -81,8 +81,10 @@ class Content extends Component {
     const groups = this.props.content;
     const addProduct = this.props.actions;
     const { term } = this.state;
-    console.log(groups);
-    return (
+    console.log(this.props.recipesList.length);
+    return this.props.recipesList.length ? (
+      <div>fdsfdsdf</div>
+    ): (
       <div>
         <div className={styles.search}>
           <input
@@ -96,17 +98,16 @@ class Content extends Component {
           <div className={styles.content}>
             {groups.map(group =>
               group.items.filter(this.searchingFor(term)).map((item, index) => {
-                
                 return (
                   <div className={styles.content__item} key={index}>
                     <div
                       className={sn(
                         styles["content__item-padding"],
-                        this.props.selectedProducts.includes(item.title) &&
+                        this.props.selectedProducts.includes(item.titleEn) &&
                           styles["content__item--selected"]
                       )}
                       style={{ backgroundImage: `url(${item.media})` }}
-                      onClick={() => this.selectProduct(item.title)}
+                      onClick={() => this.selectProduct(item.titleEn)}
                     >
                       <div className={styles.content__icons}>
                         <i
@@ -125,7 +126,7 @@ class Content extends Component {
                       <div
                         className={sn(
                           styles["content__item-title"],
-                          this.props.selectedProducts.includes(item.title) &&
+                          this.props.selectedProducts.includes(item.titleEn) &&
                             styles["content__item-title--selected"]
                         )}
                       >
@@ -144,22 +145,13 @@ class Content extends Component {
                 <div
                   className={sn(
                     styles["content__item-padding"],
-                    this.props.selectedProducts.includes(item.title) &&
+                    this.props.selectedProducts.includes(item.titleEn) &&
                       styles["content__item--selected"]
                   )}
                   style={{ backgroundImage: `url(${item.media})` }}
-                  onClick={() => this.selectProduct(item.title)}
+                  onClick={() => this.selectProduct(item.titleEn)}
                 >
                   <div className={styles.content__icons}>
-                    {/* <i
-                      className={sn(
-                        "material-icons",
-                        this.state.deleted && styles["icon--selected"]
-                      )}
-                      onClick={this.delete}
-                    >
-                      delete
-                    </i> */}
                     <i
                       className={sn(
                         "material-icons",
@@ -176,7 +168,7 @@ class Content extends Component {
                   <div
                     className={sn(
                       styles["content__item-title"],
-                      this.props.selectedProducts.includes(item.title) &&
+                      this.props.selectedProducts.includes(item.titleEn) &&
                         styles["content__item-title--selected"]
                     )}
                   >
@@ -188,7 +180,7 @@ class Content extends Component {
           </div>
         )}
       </div>
-    );
+    ) 
   }
 }
 
@@ -196,7 +188,8 @@ function mapStateToProps(state) {
   return {
     groups: state.groups,
     selectedProducts: state.selectedProducts,
-    likedProducts: state.likedProducts
+    likedProducts: state.likedProducts,
+    recipesList: state.recipesList
   };
 }
 

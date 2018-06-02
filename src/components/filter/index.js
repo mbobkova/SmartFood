@@ -16,7 +16,7 @@ class Filter extends Component {
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     const { groups } = this.props;
     const { groupSelected } = this.state;
     return (

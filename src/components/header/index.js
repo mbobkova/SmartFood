@@ -4,19 +4,19 @@ import { bindActionCreators } from "redux";
 import axios from "axios";
 import styles from "./Header.scss";
 import Menu from "./menu/index";
-
+import {saveRecipes} from "../../actions/productActions";
 import { resetChoise } from "../../actions/productActions";
 
 import sn from "classnames";
 
 class Header extends Component {
   state = {
-    shown: false
+    shown: false,
   };
 
   toggle = () => {
     this.setState({
-      shown: !this.state.shown
+      shown: !this.state.shown,
     });
   };
 
@@ -27,7 +27,10 @@ class Header extends Component {
     };
     axios
       .get("http://localhost:8080/dish", config)
-      .then(response => this.setState({data: response}));
+      .then(response => this.props.saveRecipes(response.data));
+
+      //console.log(this.state.data);
+      // this.props.saveRecipes(this.state.data)
   };
 
   reset = () => {
@@ -35,12 +38,13 @@ class Header extends Component {
   };
 
   render() {
+    console.log(this.props.recipesList);
     const body = document.querySelector("body");
     this.state.shown
       ? (body.style.overflow = "hidden")
       : (body.style.overflow = "auto");
 
-    console.log(this.props.selectedProducts);
+    console.log(this.props.recipesList);
 
     return (
       <header className={styles.header}>
@@ -90,13 +94,15 @@ class Header extends Component {
 
 function mapStateToProps(state) {
   return {
-    selectedProducts: state.selectedProducts
+    selectedProducts: state.selectedProducts,
+    recipesList: state.recipesList,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    resetChoise: bindActionCreators(resetChoise, dispatch)
+    resetChoise: bindActionCreators(resetChoise, dispatch),
+    saveRecipes: bindActionCreators(saveRecipes, dispatch)
   };
 }
 
