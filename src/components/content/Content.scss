@@ -1,4 +1,4 @@
-@import '../../common/styles';
+@import "../../common/styles";
 
 .content {
   display: flex;
@@ -43,7 +43,6 @@
         &:hover {
           background-size: 500px;
         }
-  
       }
     }
 
@@ -58,13 +57,13 @@
 
       &--selected {
         padding: 25px 7px;
-        background-color:  $red-ribbon;
+        background-color: $red-ribbon;
       }
     }
   }
 
   &__icons {
-   padding: 4px;
+    padding: 4px;
   }
 }
 .icon--selected {
@@ -84,4 +83,37 @@
     border: 1px solid #645d5d30;
     box-shadow: 2px 1px 6px #0000002b;
   }
+}
+
+.recipesList {
+  width: 100%;
+  padding: 0 4px;
+
+  &__item {
+    display: flex;
+    padding: 10px 0;
+    background-size: cover;
+    background-position: 50% top;
+    min-height: 260px;
+  }
+
+  &__image {
+    width: 40%;
+    height: 240px;
+    border-radius: 3px;
+  }
+
+  &__info {
+    width: 50%;
+    background-color: beige;
+    padding-left: 30px;
+  }
+
+  &__name {
+    margin-right: 30px;
+  }
+}
+
+.star-icon {
+  cursor: pointer;
 }

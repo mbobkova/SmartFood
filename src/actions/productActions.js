@@ -33,9 +33,22 @@ export function resetChoise() {
 }
 
 export function saveRecipes(recipes) {
-	console.log(recipes)
 	return {
 		type: 'saveRecipes',
 		payload: recipes,
+	}
+}
+
+export function likeResipe(recipe) {
+	return {
+		type: 'likeResipe',
+		payload: recipe,
+	}
+}
+
+export function unlikeResipe(recipe) {
+	return {
+		type: 'unlikeResipe',
+		payload: recipe,
 	}
 }

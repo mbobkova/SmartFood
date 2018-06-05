@@ -527,7 +527,8 @@ const initialState = {
   ],
   selectedProducts: [],
   likedProducts: [],
-  recipesList :[]
+  recipesList :[],
+  likedRecipes:[]
 };
 
 export default function userstate(state = initialState, action) {
@@ -580,7 +581,8 @@ export default function userstate(state = initialState, action) {
     case "reset":
       return {
         ...state,
-        selectedProducts: [...state.likedProducts.splice(0,0)]
+        selectedProducts: [...state.selectedProducts.splice(0,0)],
+        recipesList: [ ...state.recipesList.splice(0,0)]
       };
 
       case "saveRecipes":
@@ -588,6 +590,29 @@ export default function userstate(state = initialState, action) {
         ...state,
         recipesList: [ ...action.payload]
       };
+
+      case "likeResipe":
+      return {
+        ...state,
+        likedRecipes: [...state.likedRecipes, action.payload]
+      };
+
+    case "unlikeResipe":
+      const likeResipeID = state.likedRecipes.indexOf(action.payload);
+      if (likeResipeID !== 0) {
+        return {
+          ...state,
+          likedRecipes: [
+            ...state.likedRecipes.splice(0, likeResipeID),
+            ...state.likedRecipes.splice(likeResipeID)
+          ]
+        };
+      } else {
+        return {
+          ...state,
+          likedRecipes: [...state.likedRecipes.splice(likeResipeID + 1)]
+        };
+      }
 
     default:
       return state;

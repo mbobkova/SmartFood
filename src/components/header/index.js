@@ -38,13 +38,10 @@ class Header extends Component {
   };
 
   render() {
-    console.log(this.props.recipesList);
     const body = document.querySelector("body");
     this.state.shown
       ? (body.style.overflow = "hidden")
       : (body.style.overflow = "auto");
-
-    console.log(this.props.recipesList);
 
     return (
       <header className={styles.header}>

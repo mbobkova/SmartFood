@@ -8,61 +8,36 @@ import Search from "../search/index";
 import styles from "./Content.scss";
 
 class Content extends Component {
-  state = { selected: [], liked: [], deleted: [], term: "" };
+  state = { selected: [], liked: [], term: "" };
 
   selectProduct = item => {
-    if (!this.state.selected.includes(item)) {
-      this.setState({
-        selected: [...this.state.selected, item]
-      });
+    if (!this.props.selectedProducts.includes(item)) {
+
       this.props.actions.addProduct(item);
     } else {
-      const index = this.state.selected.indexOf(item);
-      if (index !== 0) {
-        this.setState({
-          selected: [
-            ...this.state.selected.splice(0, index),
-            ...this.state.selected.splice(index)
-          ]
-        });
-      } else {
-        this.setState({
-          selected: [...this.state.selected.splice(index + 1)]
-        });
-      }
+
       this.props.actions.deleteProduct(item);
     }
   };
 
-  like = (e, item) => {
+  likeProduct = (e, item) => {
     e.stopPropagation();
-    if (!this.state.liked.includes(item)) {
-      this.setState({
-        liked: [...this.state.liked, item]
-      });
+    if (!this.props.likedProducts.includes(item)) {
+
       this.props.actions.likeProduct(item);
     } else {
-      const index = this.state.liked.indexOf(item);
-      if (index !== 0) {
-        this.setState({
-          liked: [
-            ...this.state.liked.splice(0, index),
-            ...this.state.liked.splice(index + 1)
-          ]
-        });
-      } else {
-        this.setState({
-          liked: [...this.state.liked.splice(index + 1)]
-        });
-      }
+
       this.props.actions.unlikeProduct(item);
     }
   };
 
-  delete = () => {
-    this.setState({
-      deleted: !this.state.deleted
-    });
+  likeRecipe = (e, item) => {
+    e.stopPropagation();
+    if (!this.props.likedRecipes.includes(item)) {
+      this.props.actions.likeResipe(item);
+    } else {
+      this.props.actions.unlikeResipe(item);
+    }
   };
 
   searchingFor = term => {
@@ -81,10 +56,45 @@ class Content extends Component {
     const groups = this.props.content;
     const addProduct = this.props.actions;
     const { term } = this.state;
-    console.log(this.props.recipesList.length);
+    const recipesList = this.props.recipesList;
+
+    console.log(this.props);
     return this.props.recipesList.length ? (
-      <div>fdsfdsdf</div>
-    ): (
+      <div className={styles.recipesList}>
+        {recipesList.map((item, i) => {
+          return (
+            <div className={styles.recipesList__item}>
+              <div
+                className={styles.recipesList__image}
+                style={{
+                  backgroundImage: `url(http://podrobnosti.ua/media/pictures/2017/12/12/thumbs/740x415/foto-iz-otkrytyh-istochnikov_rect_2fe7719437679820ac4d9c9c0c65c19c.jpg)`
+                }}
+              />
+              <div className={styles.recipesList__info}>
+                <p>{item.name}</p>
+                <p>{item.description}</p>
+                <p>{item.energyValue}</p>
+                <p>{item.calorificValue}</p>
+                <p>{item.recipe}</p>
+              </div>
+              <i
+                className={sn(
+                  "material-icons",
+                  "star-icon",
+                  this.props.likedRecipes.includes(item.name) &&
+                    styles["icon--selected"]
+                )}
+                onClick={e => {
+                  this.likeRecipe(e, item.name);
+                }}
+              >
+                star
+              </i>
+            </div>
+          );
+        })}
+      </div>
+    ) : (
       <div>
         <div className={styles.search}>
           <input
@@ -117,7 +127,7 @@ class Content extends Component {
                               styles["icon--selected"]
                           )}
                           onClick={e => {
-                            this.like(e, item.title);
+                            this.likeProduct(e, item.title);
                           }}
                         >
                           favorite
@@ -180,7 +190,7 @@ class Content extends Component {
           </div>
         )}
       </div>
-    ) 
+    );
   }
 }
 
@@ -189,7 +199,8 @@ function mapStateToProps(state) {
     groups: state.groups,
     selectedProducts: state.selectedProducts,
     likedProducts: state.likedProducts,
-    recipesList: state.recipesList
+    recipesList: state.recipesList,
+    likedRecipes: state.likedRecipes
   };
 }
 

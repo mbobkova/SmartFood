@@ -26,7 +26,7 @@ class Filter extends Component {
             className={styles.filter__tab}
             onClick={() => this.showGroup(-1)}
           >
-            <span> All</span>
+            <span>Все</span>
           </button>
           {groups.map((item, index) => {
             return (
