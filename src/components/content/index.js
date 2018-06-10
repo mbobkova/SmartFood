@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import Search from "../search/index"
 import sn from "classnames";
 
 import * as actions from "../../actions/productActions";
-import Search from "../search/index";
 import styles from "./Content.scss";
 
 class Content extends Component {
@@ -12,10 +12,8 @@ class Content extends Component {
 
   selectProduct = item => {
     if (!this.props.selectedProducts.includes(item)) {
-
       this.props.actions.addProduct(item);
     } else {
-
       this.props.actions.deleteProduct(item);
     }
   };
@@ -23,10 +21,8 @@ class Content extends Component {
   likeProduct = (e, item) => {
     e.stopPropagation();
     if (!this.props.likedProducts.includes(item)) {
-
       this.props.actions.likeProduct(item);
     } else {
-
       this.props.actions.unlikeProduct(item);
     }
   };
@@ -54,11 +50,9 @@ class Content extends Component {
 
   render() {
     const groups = this.props.content;
-    const addProduct = this.props.actions;
     const { term } = this.state;
     const recipesList = this.props.recipesList;
 
-    console.log(this.props);
     return this.props.recipesList.length ? (
       <div className={styles.recipesList}>
         {recipesList.map((item, i) => {
@@ -67,20 +61,19 @@ class Content extends Component {
               <div
                 className={styles.recipesList__image}
                 style={{
-                  backgroundImage: `url(http://podrobnosti.ua/media/pictures/2017/12/12/thumbs/740x415/foto-iz-otkrytyh-istochnikov_rect_2fe7719437679820ac4d9c9c0c65c19c.jpg)`
+                  backgroundImage: `url(${item.media})`
                 }}
               />
               <div className={styles.recipesList__info}>
-                <p>{item.name}</p>
+                <p><strong>{item.name}</strong></p>
                 <p>{item.description}</p>
-                <p>{item.energyValue}</p>
-                <p>{item.calorificValue}</p>
-                <p>{item.recipe}</p>
+                <p>{item.calorificValue} Ккал</p>
+                <p className={styles.recipesList__description}>{item.recipe}</p>
               </div>
               <i
                 className={sn(
                   "material-icons",
-                  "star-icon",
+                  styles["star-icon"],
                   this.props.likedRecipes.includes(item.name) &&
                     styles["icon--selected"]
                 )}
@@ -169,7 +162,7 @@ class Content extends Component {
                           styles["icon--selected"]
                       )}
                       onClick={e => {
-                        this.like(e, item.title);
+                        this.likeProduct(e, item.title);
                       }}
                     >
                       favorite

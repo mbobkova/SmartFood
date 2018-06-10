@@ -3,23 +3,12 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import axios from "axios";
 import styles from "./Header.scss";
-import Menu from "./menu/index";
 import {saveRecipes} from "../../actions/productActions";
 import { resetChoise } from "../../actions/productActions";
 
 import sn from "classnames";
 
 class Header extends Component {
-  state = {
-    shown: false,
-  };
-
-  toggle = () => {
-    this.setState({
-      shown: !this.state.shown,
-    });
-  };
-
   getRecipe = () => {
     const stringParams = this.props.selectedProducts.join();
     const config = {
@@ -28,9 +17,6 @@ class Header extends Component {
     axios
       .get("http://localhost:8080/dish", config)
       .then(response => this.props.saveRecipes(response.data));
-
-      //console.log(this.state.data);
-      // this.props.saveRecipes(this.state.data)
   };
 
   reset = () => {
@@ -38,20 +24,8 @@ class Header extends Component {
   };
 
   render() {
-    const body = document.querySelector("body");
-    this.state.shown
-      ? (body.style.overflow = "hidden")
-      : (body.style.overflow = "auto");
-
     return (
       <header className={styles.header}>
-        <Menu show={this.state.shown} />
-        <i
-          className={sn("material-icons", styles["menu-icon"])}
-          onClick={this.toggle}
-        >
-          menu
-        </i>
         {this.props.selectedProducts.length ? (
           <div className={styles.header__title}>
             <span className={styles["header__title-text"]}>
@@ -72,17 +46,6 @@ class Header extends Component {
           </div>
         ) : (
           <span className={styles.header__title}>Выберете продукты</span>
-        )}
-
-        {this.state.shown && (
-          <div className={styles["header__close-btn"]}>
-            <i
-              className={sn("material-icons", styles["close-icon"])}
-              onClick={this.toggle}
-            >
-              close
-            </i>
-          </div>
         )}
       </header>
     );

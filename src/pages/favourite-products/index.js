@@ -12,7 +12,6 @@ class FavouriteProducts extends Component {
   };
   render() {
     const { groups, likedProducts } = this.props;
-    console.log(groups);
     return (
       <div className={styles["favourite-products"]}>
         {groups.map(group =>
