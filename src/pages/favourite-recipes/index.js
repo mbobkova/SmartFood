@@ -2,20 +2,21 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import styles from "./FavouriteRecipes.scss";
-import { unlikeResipe } from "../../actions/productActions";
+import { unlikeRecipe } from "../../actions/productActions";
 import sn from "classnames";
 
 class FavouriteRecipes extends Component {
-  unlikeResipe = (e, item) => {
+  unlikeRecipe = (e, item) => {
     e.stopPropagation();
-    this.props.unlikeResipe(item);
+    this.props.unlikeRecipe(item);
   };
 
   render() {
-    const { likedRecipes, recipesList } = this.props;
+    const { likedRecipes, recipesList, allRecipes } = this.props;
+    const recipes = !!allRecipes.length ? allRecipes : recipesList;
     return (
       <div className={styles["favourite-recipes"]}>
-        {recipesList.map((item, i) =>
+        {recipes.map((item, i) =>
           likedRecipes.map(
             (ricepe, i) =>
               ricepe === item.name ? (
@@ -30,6 +31,7 @@ class FavouriteRecipes extends Component {
                     <p>
                       <strong>{item.name}</strong>
                     </p>
+                    <p>Состав: {item.ingredientsTitleRu.join(", ")}</p>
                     <p>{item.description}</p>
                     <p>{item.calorificValue} Ккал</p>
                     <p className={styles.recipes__description}>{item.recipe}</p>
@@ -42,7 +44,7 @@ class FavouriteRecipes extends Component {
                         styles["icon--selected"]
                     )}
                     onClick={e => {
-                      this.unlikeResipe(e, item.name);
+                      this.unlikeRecipe(e, item.name);
                     }}
                   >
                     star
@@ -59,13 +61,14 @@ class FavouriteRecipes extends Component {
 function mapStateToProps(state) {
   return {
     likedRecipes: state.likedRecipes,
-    recipesList: state.recipesList
+    recipesList: state.recipesList,
+    allRecipes: state.allRecipes
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    unlikeResipe: bindActionCreators(unlikeResipe, dispatch)
+    unlikeRecipe: bindActionCreators(unlikeRecipe, dispatch)
   };
 }
 

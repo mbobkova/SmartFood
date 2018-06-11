@@ -92,14 +92,15 @@
   &__item {
     display: flex;
     padding: 10px 0;
-    background-size: cover;
-    background-position: 50% top;
+    
     min-height: 260px;
   }
 
   &__image {
     width: 45%;
     height: 240px;
+    background-size: cover;
+    background-position: 50% top;
     border-radius: 3px;
   }
 

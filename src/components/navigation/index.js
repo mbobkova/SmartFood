@@ -42,8 +42,10 @@ export default function Navigation() {
       </li>
 
       <li className={styles.menu__item}>
-        <i className={sn("material-icons", "menu-icon")}>alarm</i>
-        <span className={styles["menu__item-text"]}>Время готовки</span>
+        <i className="material-icons">person</i>
+        <Link to="/account">
+          <span className={styles["menu__item-text"]}>Войти в аккаунт</span>
+        </Link>
       </li>
     </ul>
   );

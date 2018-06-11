@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import Search from "../search/index"
+import Search from "../search/index";
 import sn from "classnames";
 
 import * as actions from "../../actions/productActions";
@@ -30,15 +30,15 @@ class Content extends Component {
   likeRecipe = (e, item) => {
     e.stopPropagation();
     if (!this.props.likedRecipes.includes(item)) {
-      this.props.actions.likeResipe(item);
+      this.props.actions.likeRecipe(item);
     } else {
-      this.props.actions.unlikeResipe(item);
+      this.props.actions.unlikeRecipe(item);
     }
   };
 
   searchingFor = term => {
     return function(x) {
-      return x.title.toUpperCase().includes(term.toUpperCase()) || !term;
+      return x.title.toUpperCase().includes(term.toUpperCase());
     };
   };
 
@@ -65,7 +65,10 @@ class Content extends Component {
                 }}
               />
               <div className={styles.recipesList__info}>
-                <p><strong>{item.name}</strong></p>
+                <p>
+                  <strong>{item.name}</strong>
+                </p>
+                <p>Состав: {item.ingredientsTitleRu.join(", ")}</p>
                 <p>{item.description}</p>
                 <p>{item.calorificValue} Ккал</p>
                 <p className={styles.recipesList__description}>{item.recipe}</p>

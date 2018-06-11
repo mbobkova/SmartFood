@@ -39,16 +39,30 @@ export function saveRecipes(recipes) {
 	}
 }
 
-export function likeResipe(recipe) {
+export function saveAllRecipes(recipes) {
 	return {
-		type: 'likeResipe',
+		type: 'saveAllRecipes',
+		payload: recipes,
+	}
+}
+
+export function likeRecipe(recipe) {
+	return {
+		type: 'likeRecipe',
 		payload: recipe,
 	}
 }
 
-export function unlikeResipe(recipe) {
+export function unlikeRecipe(recipe) {
 	return {
-		type: 'unlikeResipe',
+		type: 'unlikeRecipe',
 		payload: recipe,
+	}
+}
+
+export function authorize() {
+	return {
+		type: 'authorize',
+		payload: true,
 	}
 }

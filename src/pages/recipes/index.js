@@ -1,27 +1,39 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { likeResipe, unlikeResipe } from "../../actions/productActions";
+import { likeRecipe, unlikeRecipe, saveAllRecipes } from "../../actions/productActions";
 import axios from "axios";
+import sn from "classnames";
+
 import styles from "./Recipes.scss";
 
 class Recipes extends Component {
-  state = { data: [], term: "" };
+  state = { term: "" };
 
   likeRecipe = (e, item) => {
     e.stopPropagation();
     if (!this.props.likedRecipes.includes(item)) {
-      this.props.likeResipe(item);
+      this.props.likeRecipe(item);
     } else {
-      this.props.unlikeResipe(item);
+      this.props.unlikeRecipe(item);
     }
   };
+
+  searchingFor = term => {
+    return function(x) {
+      return x.name.toUpperCase().includes(term.toUpperCase()) || !term;
+    };
+  };
+
+  searchHeandler = event => {
+    this.setState({
+      term: event.target.value
+    });
+  };
   componentDidMount() {
-    axios.get("http://localhost:8080/dish").then(response =>
-      this.setState({
-        data: response.data
-      })
-    );
+    axios
+      .get("http://localhost:8080/dish")
+      .then(response => this.props.saveAllRecipes(response.data));
   }
   render() {
     const { term } = this.state;
@@ -35,7 +47,7 @@ class Recipes extends Component {
             value={term}
           />
         </div>
-        {this.state.data.map(item => (
+        {this.props.allRecipes.filter(this.searchingFor(term)).map(item => (
           <div className={styles.recipes__item}>
             <div
               className={styles.recipes__image}
@@ -47,11 +59,12 @@ class Recipes extends Component {
               <p>
                 <strong>{item.name}</strong>
               </p>
+              <p>Состав: {item.ingredientsTitleRu.join(', ')}</p>
               <p>{item.description}</p>
               <p>{item.calorificValue} Ккал</p>
               <p className={styles.recipes__description}>{item.recipe}</p>
             </div>
-            {/* <i
+            <i
               className={sn(
                 "material-icons",
                 styles["star-icon"],
@@ -63,7 +76,7 @@ class Recipes extends Component {
               }}
             >
               star
-            </i> */}
+            </i>
           </div>
         ))}
       </div>
@@ -73,14 +86,16 @@ class Recipes extends Component {
 
 function mapStateToProps(state) {
   return {
-    likedRecipes: state.likedRecipes
+    likedRecipes: state.likedRecipes,
+    allRecipes: state.allRecipes
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    unlikeResipe: bindActionCreators(unlikeResipe, dispatch),
-    likeResipe: bindActionCreators(likeResipe, dispatch)
+    likeRecipe: bindActionCreators(likeRecipe, dispatch),
+    unlikeRecipe: bindActionCreators(unlikeRecipe, dispatch),
+    saveAllRecipes: bindActionCreators(saveAllRecipes, dispatch)
   };
 }
 

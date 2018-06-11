@@ -2,17 +2,17 @@
 
 .favourite-recipes {
   width: 100%;
-  padding: 0 4px;
+  padding: 40px 4px 0;
 
   &__item {
     display: flex;
     padding: 10px 0;
-    background-size: cover;
-    background-position: 50% top;
     min-height: 260px;
   }
 
   &__image {
+    background-size: cover;
+    background-position: 50% top;
     width: 45%;
     height: 240px;
     border-radius: 3px;
