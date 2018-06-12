@@ -63,6 +63,11 @@ export function unlikeRecipe(recipe) {
 export function authorize() {
 	return {
 		type: 'authorize',
-		payload: true,
+	}
+}
+
+export function unAuthorize() {
+	return {
+		type: 'unAuthorize',
 	}
 }

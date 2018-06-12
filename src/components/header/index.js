@@ -16,7 +16,8 @@ class Header extends Component {
     };
     axios
       .get("http://localhost:8080/dish", config)
-      .then(response => this.props.saveRecipes(response.data));
+      .then(response => this.props.saveRecipes(response.data))
+      .catch(alert('Рецептов сзаданными продуктами не найдено. Попробуйте изменить своы выбор'))
   };
 
   reset = () => {

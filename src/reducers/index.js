@@ -979,7 +979,13 @@ export default function userstate(state = initialState, action) {
     case "authorize":
       return {
         ...state,
-        authorized: !state.authorized
+        authorized: true
+      };
+
+    case "unAuthorize":
+      return {
+        ...state,
+        authorized: false
       };
 
     default:

@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { likeRecipe, unlikeRecipe, saveAllRecipes } from "../../actions/productActions";
+import {
+  likeRecipe,
+  unlikeRecipe,
+  saveAllRecipes
+} from "../../actions/productActions";
 import axios from "axios";
 import sn from "classnames";
 
@@ -21,7 +25,7 @@ class Recipes extends Component {
 
   searchingFor = term => {
     return function(x) {
-      return x.name.toUpperCase().includes(term.toUpperCase()) || !term;
+      return x.name.toUpperCase().includes(term.toUpperCase());
     };
   };
 
@@ -37,6 +41,7 @@ class Recipes extends Component {
   }
   render() {
     const { term } = this.state;
+    console.log(this.props.allRecipes);
     return (
       <div className={styles.recipes}>
         <div className={styles.search}>
@@ -59,7 +64,7 @@ class Recipes extends Component {
               <p>
                 <strong>{item.name}</strong>
               </p>
-              <p>Состав: {item.ingredientsTitleRu.join(', ')}</p>
+              <p>Состав: {item.ingredientsTitleRu.join(", ")}</p>
               <p>{item.description}</p>
               <p>{item.calorificValue} Ккал</p>
               <p className={styles.recipes__description}>{item.recipe}</p>

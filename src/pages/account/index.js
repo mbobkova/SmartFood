@@ -7,7 +7,7 @@ import styles from "./Account.scss";
 import axios from "axios";
 
 class Account extends Component {
-  state = { userName: "", password: "" };
+  state = { userName: "", password: "", authorized: false };
   setUserName = event => {
     this.setState({
       userName: event.target.value
@@ -15,30 +15,53 @@ class Account extends Component {
   };
 
   setPassword = event => {
-    this.setState({
-      password: event.target.value
-    });
+    this.setState(
+      {
+        password: event.target.value
+      },
+      () => {
+        if (this.state.userName && this.state.password) {
+          this.setState({
+            authorized: true
+          });
+        } else {
+          this.setState({
+            authorized: false
+          });
+        }
+      }
+    );
   };
 
   authorize = () => {
-    if(this.state.userName && this.state.password) {const config = {
-      params: {'userName': this.state.userName},
-    };
-    axios
-      .get("http://localhost:8080/user",config, {
-        headers: {
-          Authorization:
-            "Basic " + btoa(this.state.userName + ":" + this.state.password),
-          "Access-Control-Allow-Origin": "*"
-        }
-      })
-      .then(response => this.props.authorize())}
-    else(console.log("empty fields"))
+    if (this.state.userName && this.state.password) {
+      const config = {
+        params: { userName: this.state.userName }
+      };
+      axios
+        .get("http://localhost:8080/user", config, {
+          headers: {
+            Authorization:
+              "Basic " + btoa(this.state.userName + ":" + this.state.password),
+            "Access-Control-Allow-Origin": "*"
+          }
+        })
+        .then(response => {
+          if (response.data !== "") {
+            this.props.authorize()
+          } else {
+            alert(
+              "Такого пользователя не найдено. Проверьте пароль и логин, чтобы зайти в аккаунт"
+            );
+          }
+        })
+    } else {
+      alert("Заполните поля");
+    }
   };
 
   render() {
-    const { userName, password } = this.state;
-    console.log(this.props.authorized)
+    const { userName, password, authorized } = this.state;
     return (
       <div className={styles.form}>
         <div className={styles.form__username}>
@@ -61,9 +84,17 @@ class Account extends Component {
             value={password}
           />
         </div>
-        <button className={styles.form__btn} onClick={this.authorize}>
-          Войти
-        </button>
+        {authorized ? (
+          <Link to="/home">
+            <button className={styles.form__btn} onClick={this.authorize}>
+              Войти
+            </button>
+          </Link>
+        ) : (
+          <button className={styles.form__btn} onClick={this.authorize}>
+            Войти
+          </button>
+        )}
         <Link to="/registration">
           <p className={styles["form__text-for-registration"]}>
             Еще не зарегистрировались?
@@ -76,7 +107,7 @@ class Account extends Component {
 
 function mapStateToProps(state) {
   return {
-    authorized: state.authorized,
+    authorized: state.authorized
   };
 }
 
